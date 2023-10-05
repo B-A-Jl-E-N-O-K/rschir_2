@@ -1,0 +1,17 @@
+version: '3.8'
+
+services:
+  server:
+    restart: always
+    build: server
+    ports:
+      - '80:80'
+    container_name: mirea_rschir_server
+  db:
+    build: db
+    restart: always
+    volumes:
+      - ./db/mysql:/var/lib/mysql
+    ports:
+      - '3307:3306'
+    container_name: mirea_rschir_database
