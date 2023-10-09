@@ -1,20 +1,25 @@
 <html lang="en">
 <head>
-<title>Add student page</title>
+<title>Update student page</title>
     <link rel="stylesheet" href="style.css" type="text/css"/>
 </head>
 <body>
-<form method="post" action="<?php $_PHP_SELF ?>" name="createForm">
+<form method="post" action="<?php $_PHP_SELF ?>" name="updateForm">
+    ID в БД:  <input type="text" name="ID" /><br />
+    <p>
+    Новые данные <br />
     Имя:  <input type="text" name="name" /><br />
     Фамилия: <input type="text" name="surname" /><br />
     Средний балл: <input type="text" name="averageMark" /><br />
-    <input type="submit" name="submit" value="Создать запись о студенте" />
+    </p>
+    <input type="submit" name="submit" value="Обновить запись о студенте" />
 </form>
 
 <?php
 
-if( isset($_POST['name']) )
+if( isset($_POST['ID']) )
     {
+        $ID = $_POST['ID'];
         $name = htmlspecialchars($_POST['name']);
         $surname = htmlspecialchars($_POST['surname']);
         $averageMark = $_POST['averageMark'];
@@ -28,9 +33,10 @@ if( isset($_POST['name']) )
         }
         
 
-        $sql = $conn->query("INSERT INTO students (namee, surname, averageMark) VALUES ('$name', '$surname', $averageMark)");
+        $sql = $conn->query("UPDATE students SET namee = '$name', surname = '$surname', averageMark = $averageMark WHERE ID = $ID");
           
-        echo '<h3>Вы отправили запись о студенте!</h3>';
+        echo '<h3>Вы изменили запись о студенте!</h3>';
+        echo 'ID: ', $ID, '<br/>';
         echo 'Имя: ', $name, '<br/>';
         echo 'Фамилия: ', $surname, '<br/>';
         echo 'Средний балл: ', $averageMark, '<br/>';
